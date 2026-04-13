@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, X, Settings2, Trash2 } from 'lucide-react';
+import { Plus, X, Trash2 } from 'lucide-react';
 import TaskItem from './TaskItem';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -25,7 +25,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
   };
 
   const toggleTask = (taskId: string) => {
-    const updatedTasks = category.tasks.map(t => 
+    const updatedTasks = category.tasks.map(t =>
       t.id === taskId ? { ...t, completed: !t.completed } : t
     );
     onUpdateCategory(category.id, { tasks: updatedTasks });
@@ -44,7 +44,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
   const progress = category.tasks.length === 0 ? 0 : (completedCount / category.tasks.length) * 100;
 
   return (
-    <motion.div 
+    <motion.div
       layout
       className="glass-card"
       style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', height: 'fit-content' }}
@@ -52,7 +52,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
           {isEditingTitle ? (
-            <input 
+            <input
               autoFocus
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
@@ -61,7 +61,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
               style={{ fontSize: '1.125rem', fontWeight: 700, padding: '0.25rem 0.5rem', marginBottom: '0.25rem' }}
             />
           ) : (
-            <h3 
+            <h3
               onClick={() => setIsEditingTitle(true)}
               style={{ fontSize: '1.125rem', fontWeight: 700, cursor: 'pointer' }}
             >
@@ -72,7 +72,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
             {completedCount}/{category.tasks.length} Completed
           </p>
         </div>
-        
+
         <div style={{ display: 'flex', gap: '0.25rem' }}>
           <button onClick={() => setIsAdding(!isAdding)} className="btn-icon" style={{ width: '2rem', height: '2rem' }}>
             {isAdding ? <X size={14} /> : <Plus size={14} />}
@@ -84,7 +84,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
       </div>
 
       <div style={{ height: '4px', background: 'var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
-        <motion.div 
+        <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           style={{ height: '100%', background: 'var(--accent-color)' }}
@@ -94,9 +94,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', maxHeight: '300px', overflowY: 'auto', paddingRight: '4px' }}>
         <AnimatePresence>
           {category.tasks.map(task => (
-            <TaskItem 
-              key={task.id} 
-              task={task} 
+            <TaskItem
+              key={task.id}
+              task={task}
               onToggle={toggleTask}
               onDelete={deleteTask}
             />
@@ -105,12 +105,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, onUpdateCategory,
       </div>
 
       {isAdding && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}
         >
-          <input 
+          <input
             autoFocus
             placeholder="New skill..."
             value={newTaskName}

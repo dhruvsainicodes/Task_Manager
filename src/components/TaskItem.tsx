@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, Reorder } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Check, Trash2 } from 'lucide-react';
 
 interface TaskItemProps {
@@ -10,14 +10,14 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => {
   return (
-    <motion.div 
+    <motion.div
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
+      style={{
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0.75rem 1rem',
         background: 'rgba(255, 255, 255, 0.03)',
@@ -27,12 +27,12 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
-        <button 
+        <button
           onClick={() => onToggle(task.id)}
-          style={{ 
-            width: '1.25rem', 
-            height: '1.25rem', 
-            borderRadius: '0.375rem', 
+          style={{
+            width: '1.25rem',
+            height: '1.25rem',
+            borderRadius: '0.375rem',
             border: `2px solid ${task.completed ? 'var(--accent-color)' : 'var(--text-secondary)'}`,
             background: task.completed ? 'var(--accent-color)' : 'transparent',
             display: 'flex',
@@ -43,19 +43,19 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => {
         >
           {task.completed && <Check size={14} color="white" />}
         </button>
-        <span style={{ 
-          fontSize: '0.9375rem', 
+        <span style={{
+          fontSize: '0.9375rem',
           color: task.completed ? 'var(--text-secondary)' : 'var(--text-primary)',
           textDecoration: task.completed ? 'line-through' : 'none',
           cursor: 'pointer'
         }}
-        onClick={() => onToggle(task.id)}
+          onClick={() => onToggle(task.id)}
         >
           {task.name}
         </span>
       </div>
-      
-      <button 
+
+      <button
         onClick={() => onDelete(task.id)}
         className="delete-btn"
         style={{ background: 'transparent', color: '#ef4444', opacity: 0.6, padding: '4px' }}
